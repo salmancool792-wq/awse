@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TV Activation</title>
+<title>Device Activation</title>
 
 <style>
 *{
@@ -14,48 +14,60 @@
 }
 
 body{
-    background:linear-gradient(135deg,#0f172a,#1e3a8a);
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    background:
+        linear-gradient(rgba(10,15,25,.55), rgba(10,15,25,.55)),
+        url("background.jpg") center center/cover no-repeat fixed;
 }
 
 .container{
-    width:400px;
-    background:#fff;
+    width:420px;
+    background:rgba(255,255,255,.96);
+    border-radius:18px;
     padding:40px;
-    border-radius:15px;
-    box-shadow:0 15px 40px rgba(0,0,0,.3);
     text-align:center;
+    box-shadow:0 25px 60px rgba(0,0,0,.45);
 }
 
 .logo{
-    font-size:45px;
-    margin-bottom:10px;
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#2563eb;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    margin:0 auto 20px;
 }
 
 h1{
-    color:#1e3a8a;
-    margin-bottom:15px;
+    color:#1d4ed8;
+    font-size:30px;
+    margin-bottom:12px;
 }
 
-p{
-    color:#555;
-    margin-bottom:25px;
-    line-height:1.5;
+.subtitle{
+    color:#666;
+    line-height:1.6;
+    margin-bottom:28px;
 }
 
 input{
     width:100%;
-    padding:15px;
+    padding:16px;
     font-size:18px;
     text-align:center;
-    border:2px solid #ccc;
-    border-radius:8px;
-    letter-spacing:3px;
+    border:2px solid #d8d8d8;
+    border-radius:10px;
     outline:none;
-    margin-bottom:20px;
+    letter-spacing:2px;
+    margin-bottom:18px;
+    transition:.25s;
 }
 
 input:focus{
@@ -64,60 +76,95 @@ input:focus{
 
 button{
     width:100%;
-    padding:15px;
+    padding:16px;
+    border:none;
+    border-radius:10px;
     background:#2563eb;
     color:#fff;
     font-size:18px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.3s;
+    font-weight:bold;
+    cursor:not-allowed;
+    opacity:.5;
+    transition:.25s;
 }
 
-button:hover{
+button:enabled{
+    opacity:1;
+    cursor:pointer;
+}
+
+button:hover:enabled{
     background:#1d4ed8;
 }
 
-.footer{
+.info{
     margin-top:25px;
-    color:#777;
+    padding:15px;
+    background:#f3f6fb;
+    border-radius:10px;
+    color:#555;
     font-size:14px;
+    line-height:1.5;
+}
+
+.footer{
+    margin-top:18px;
+    color:#777;
+    font-size:13px;
+}
+
+a{
+    text-decoration:none;
 }
 </style>
-
 </head>
+
 <body>
 
 <div class="container">
 
-<div class="logo">📺</div>
+    <div class="logo">📺</div>
 
-<h1>Enter Your Code</h1>
+    <h1>Device Activation</h1>
 
-<p>
-Enter the activation code displayed on your TV to continue.
-</p>
+    <p class="subtitle">
+        Enter the activation code displayed on your TV or streaming device to continue.
+    </p>
 
-<form action="page2.html" method="GET">
+    <form action="page2.html" method="GET">
 
-<input
-type="text"
-name="code"
-placeholder="Enter Activation Code"
-maxlength="18"
-required>
+        <input
+            id="activationCode"
+            type="text"
+            name="code"
+            placeholder="Enter Activation Code"
+            maxlength="18"
+            required>
 
-<button type="submit">
-Activate TV
-</button>
+        <button id="activateBtn" type="submit" disabled>
+            Activate Device
+        </button>
 
-</form>
+    </form>
 
-<div class="footer">
-Need help? Contact Support +1(800) 000-1000.
+    <div class="info">
+        Make sure the activation code matches the one displayed on your device screen.
+    </div>
+
+    <div class="footer">
+        Need help? Contact Customer Support
+    </div>
+
 </div>
 
-</div>
+<script>
+const input = document.getElementById("activationCode");
+const button = document.getElementById("activateBtn");
+
+input.addEventListener("input", function(){
+    button.disabled = this.value.trim().length === 0;
+});
+</script>
 
 </body>
 </html>
