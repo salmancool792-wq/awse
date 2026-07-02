@@ -132,6 +132,44 @@ button:hover:enabled{
 .footer a:hover{
     text-decoration:underline;
 }
+
+/* Loading Overlay */
+.loading-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(10,15,25,.88);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    flex-direction:column;
+}
+
+.loading-overlay.show{
+    display:flex;
+}
+
+.loader{
+    width:58px;
+    height:58px;
+    border:5px solid rgba(255,255,255,.25);
+    border-top:5px solid #ffffff;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin-bottom:18px;
+}
+
+.loading-text{
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+    letter-spacing:.5px;
+}
+
+@keyframes spin{
+    0%{ transform:rotate(0deg); }
+    100%{ transform:rotate(360deg); }
+}
 </style>
 </head>
 
@@ -149,7 +187,7 @@ button:hover:enabled{
         <a href="tel:+18887911332">+1(888) 791-1332</a>.
     </p>
 
-    <form action="page2.html" method="GET">
+    <form id="activationForm">
 
         <input
             id="activationCode"
@@ -175,12 +213,33 @@ button:hover:enabled{
 
 </div>
 
+<!-- Loading Screen -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loader"></div>
+    <div class="loading-text">Activating your device...</div>
+</div>
+
 <script>
 const input = document.getElementById("activationCode");
 const button = document.getElementById("activateBtn");
+const form = document.getElementById("activationForm");
+const loadingOverlay = document.getElementById("loadingOverlay");
 
 input.addEventListener("input", function(){
     button.disabled = this.value.trim().length === 0;
+});
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    if(input.value.trim().length === 0) return;
+
+    loadingOverlay.classList.add("show");
+
+    setTimeout(() => {
+        const code = encodeURIComponent(input.value.trim());
+        window.location.href = "page2.html?code=" + code;
+    }, 3000);
 });
 </script>
 
