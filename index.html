@@ -14,17 +14,19 @@
 }
 
 body{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     background:
         linear-gradient(rgba(10,15,25,.55), rgba(10,15,25,.55)),
         url("background.jpg") center center/cover no-repeat fixed;
+    padding:20px;
 }
 
 .container{
     width:420px;
+    max-width:100%;
     background:rgba(255,255,255,.96);
     border-radius:18px;
     padding:40px;
@@ -188,7 +190,6 @@ button:hover:enabled{
     </p>
 
     <form id="activationForm">
-
         <input
             id="activationCode"
             type="text"
@@ -200,7 +201,6 @@ button:hover:enabled{
         <button id="activateBtn" type="submit" disabled>
             Activate Device
         </button>
-
     </form>
 
     <div class="info">
@@ -213,7 +213,6 @@ button:hover:enabled{
 
 </div>
 
-<!-- Loading Screen -->
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loader"></div>
     <div class="loading-text">Activating your device...</div>
@@ -225,20 +224,32 @@ const button = document.getElementById("activateBtn");
 const form = document.getElementById("activationForm");
 const loadingOverlay = document.getElementById("loadingOverlay");
 
+// अगर back karke user is page par aaye to purana code wapas bhar do
+const savedCode = sessionStorage.getItem("activationCode");
+if (savedCode) {
+    input.value = savedCode;
+    button.disabled = savedCode.trim().length === 0;
+}
+
 input.addEventListener("input", function(){
-    button.disabled = this.value.trim().length === 0;
+    const value = this.value.trim();
+    button.disabled = value.length === 0;
+    sessionStorage.setItem("activationCode", value);
 });
 
 form.addEventListener("submit", function(e){
     e.preventDefault();
 
-    if(input.value.trim().length === 0) return;
+    const code = input.value.trim();
+    if(code.length === 0) return;
+
+    sessionStorage.setItem("activationCode", code);
 
     loadingOverlay.classList.add("show");
 
     setTimeout(() => {
-        const code = encodeURIComponent(input.value.trim());
-        window.location.href = "page2.html?code=" + code;
+        // replace use karne se loading-state history me separate step nahi banegi
+        window.location.replace("page2.html?code=" + encodeURIComponent(code));
     }, 3000);
 });
 </script>
