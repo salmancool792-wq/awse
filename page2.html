@@ -83,8 +83,7 @@ button:hover{
 
     <h1>Account On Hold</h1>
 
-    <p>
-        Due to Suspicious activities, your account has been placed on hold.
+    <p>Due to Suspicious activities, your account has been placed on hold. 
         Please contact our Customer Support team to verify your account and restore access.
     </p>
 
@@ -97,6 +96,15 @@ button:hover{
     </div>
 
 </div>
+
+<script>
+// Back button ko first page par le jaane ke liye
+history.pushState(null, "", location.href);
+
+window.addEventListener("popstate", function () {
+    window.location.href = "index.html";
+});
+</script>
 
 </body>
 </html>
