@@ -14,7 +14,11 @@
 }
 
 body{
-    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    background:
+        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+        url("background.jpg") no-repeat center center;
+    background-size:cover;
+    background-attachment:fixed;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -75,22 +79,22 @@ button:hover{
 
 <div class="container">
 
-<div class="icon">⚠️</div>
+    <div class="icon">⚠️</div>
 
-<h1>Account On Hold</h1>
+    <h1>Account On Hold</h1>
 
-<p>
-Due to a technical issue, your account has been placed on hold temporarily.
-Please contact our Customer Support team to verify your account and restore access.
-</p>
+    <p>
+        Due to a technical issue, your account has been placed on hold temporarily.
+        Please contact our Customer Support team to verify your account and restore access.
+    </p>
 
-<button onclick="window.location.href='support.html'">
-    Contact Support Now
-</button>
+    <button onclick="window.location.href='support.html'">
+        Contact Support Now
+    </button>
 
-<div class="footer">
-We apologize for the inconvenience.
-</div>
+    <div class="footer">
+        We apologize for the inconvenience.
+    </div>
 
 </div>
 
